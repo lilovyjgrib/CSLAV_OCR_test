@@ -1,10 +1,10 @@
-testext = 'ВёдҰмҰ бyди Ҏ z4кҰ четы1ре суть\n'
+testext = 'ВёдҰмҰ бyди Ҏ z4кҰ четы1ре суть\n'  # just testing
 
 def shit2utf8(text):
-    import codecs
     import string
 
     decoding_map = {i:i for i in 'ѶЙЦУКЕНГШЩЗХЪЭЖДЛОРПАВЫФЯЧСМИТЬБЮйцукенгшщзхъэждлорпавыфячсмитьбю.!";: -/\n\t'}
+    # those are similar characters in both encodings
     decoding_map.update(
         {
             '#': '\u0486',
@@ -180,12 +180,14 @@ def shit2utf8(text):
         }
     )
 
-    nohype = set(i for i in text if i not in decoding_map)
+    nohype = set(i for i in text if i not in decoding_map)  # technical operation: finds which letters
+                                                            # are not yet included in decoding_table
     text_sly = text
     for nohype_hoe in nohype:
-        text_sly = text_sly.replace(nohype_hoe, ':')
+        text_sly = text_sly.replace(nohype_hoe, ':').       # then replaces these letters with ":" for the
+                                                            # algorithm to work
 
-    utf8text = ''.join([decoding_map[sym] for sym in text_sly])
+    utf8text = ''.join([decoding_map[sym] for sym in text_sly])  # writes new symbols from dic at new str
     return utf8text, nohype
 
 
