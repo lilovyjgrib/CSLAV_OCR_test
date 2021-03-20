@@ -1,9 +1,9 @@
-testext = 'ВёдҰмҰ бyди Ҏ z4кҰ четы1ре суть\n'  # just testing
+testext = 'ВёдҰмҰ бyди Ҏ z4кҰ четы1ре суть\n'
 
 def shit2utf8(text):
     import string
 
-    decoding_map = {i:i for i in 'ѶЙЦУКЕНГШЩЗХЪЭЖДЛОРПАВЫФЯЧСМИТЬБЮйцукенгшщзхъэждлорпавыфячсмитьбю.!";: -/\n\t'}
+    decoding_map = {i:i for i in 'ЙЦУКЕНГШЩЗХЪЭЖДЛОРПАВЫФЯЧСМИТЬБЮйцукенгшщзхъэждлорпавыфячсмитьбю.!";: -/\n\t'}
     # those are similar characters in both encodings
     decoding_map.update(
         {
@@ -88,6 +88,7 @@ def shit2utf8(text):
             '}': '\u0438' + '\u0483',  # the numeral eight
             '~': '\u0301',  # yet another acute accent
             ### SECOND HALF IS THE CYRILLIC BLOCK
+            '.': '·',  # жирная точка по центру
             'Ђ': '\u0475' + '\u0301',  # lowercase izhitsa with acute
             'Ѓ': '\u0410' + '\u0486' + '\u0301',  # uppercase A with psili and acute
             '‚': '\u201A',
@@ -169,25 +170,25 @@ def shit2utf8(text):
             'Ӂ': 'ꙋ',  # ук лигатура
             'Ұ': 'ᲂ',  # острое о
             ',': ',',
-            'ӡ': 'з',
+            'ӡ': 'ζ',
             'ү': 'ᲁ',  # д с длинными ножками
             'ө': '\u2DF2',  # ш надстр под титлом
             'Ҏ': '.',  # нежирная точка
             'ѣ': 'ᲇ',  # ять с загнутым концом
             'Һ': 'ѽ',  # широкий от с великим апострофом
             'Ѹ': '҃',  # титло меж҃ду буквами
-            'ұ': '\u2DE8'  # м надстрочное
+            'ұ': '\u2DE8',  # м надстрочное
+            'Ѷ': '‶'  # двойной обратный штрих
         }
     )
 
     nohype = set(i for i in text if i not in decoding_map)  # technical operation: finds which letters
-                                                            # are not yet included in decoding_table
-    text_sly = text
+    text_sly = text                                         # are not yet included in decoding_table
     for nohype_hoe in nohype:
-        text_sly = text_sly.replace(nohype_hoe, ':').       # then replaces these letters with ":" for the
+        text_sly = text_sly.replace(nohype_hoe, ':')        # then replaces these letters with ":" for the
                                                             # algorithm to work
 
-    utf8text = ''.join([decoding_map[sym] for sym in text_sly])  # writes new symbols from dic at new str
+    utf8text = ''.join([decoding_map[sym] for sym in text_sly])  # writes symbols' decodings to a new str
     return utf8text, nohype
 
 
